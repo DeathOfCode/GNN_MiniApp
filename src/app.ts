@@ -15,12 +15,10 @@ import "@/css/app.scss";
 
 // Expose app configuration
 import appConfig from "../app-config.json";
-import {crawlData} from "@/crawlers/crawlerGNN";
 
 if (!window.APP_CONFIG) {
   window.APP_CONFIG = appConfig;
 }
-crawlData();
 // Mount the app
 const root = createRoot(document.getElementById("app")!);
 root.render(createElement(RouterProvider, { router }));

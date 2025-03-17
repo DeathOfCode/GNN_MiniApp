@@ -51,22 +51,7 @@ export default function ProductItem(props: ProductItemProps) {
               <div className="mt-0.5 text-sm font-bold text-primary truncate">
                 {formatPrice(props.product.price)}
               </div>
-              {props.product.originalPrice && (
-                <div className="text-3xs space-x-0.5 truncate">
-                  <span className="text-subtitle line-through">
-                    {formatPrice(props.product.originalPrice)}
-                  </span>
-                  <span className="text-danger">
-                    -
-                    {100 -
-                      Math.round(
-                        (props.product.price * 100) /
-                          props.product.originalPrice
-                      )}
-                    %
-                  </span>
-                </div>
-              )}
+              
             </div>
           </>
         )}

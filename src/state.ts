@@ -18,8 +18,10 @@ import toast from "react-hot-toast";
 import { calculateDistance } from "./utils/location";
 import { formatDistant } from "./utils/format";
 import CONFIG from "./config";
+import {crawlData, getBannerImages} from "@/crawlers/crawlerGNN";
 
 export const userInfoKeyState = atom(0);
+
 
 export const userInfoState = atom<Promise<UserInfo>>(async (get) => {
   get(userInfoKeyState);
@@ -31,7 +33,6 @@ export const userInfoState = atom<Promise<UserInfo>>(async (get) => {
   if (savedUserInfo) {
     return JSON.parse(savedUserInfo);
   }
-
   const {
     authSetting: {
       "scope.userInfo": grantedUserInfo,
@@ -83,9 +84,13 @@ export const phoneState = atom(async () => {
   return phone;
 });
 
-export const bannersState = atom(() =>
-  requestWithFallback<string[]>("/banners", [])
-);
+export const bannersState = atom(async () =>{
+  const htmlPageGNN = await crawlData();
+  const banners = await getBannerImages(htmlPageGNN)
+  console.log(banners);
+   return banners;  
+ //requestWithFallback<string[]>("/banners", [])
+});
 
 export const tabsState = atom(["Tất cả", "Nam", "Nữ", "Trẻ em"]);
 
